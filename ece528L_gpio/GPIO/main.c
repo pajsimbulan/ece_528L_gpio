@@ -19,7 +19,6 @@
  * as the default setting. When the buttons are pressed, they connect to GND. Refer to the
  * schematic found in the MSP432P401R LaunchPad User's Guide.
  *
- * @author Aaron Nanas
  */
 
 #include <stdint.h>

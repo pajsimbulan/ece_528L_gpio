@@ -48,6 +48,9 @@ extern const uint8_t PMOD_8LD_ALL_OFF;
 extern const uint8_t PMOD_8LD_ALL_ON;
 extern const uint8_t PMOD_8LD_0_3_ON;
 extern const uint8_t PMOD_8LD_4_7_ON;
+extern const uint8_t PMOD_8LD_EVEN_ON;
+extern const uint8_t PMOD_8LD_ODD_ON;
+
 
 /**
  * @brief The LED1_Init function initializes the built-in red LED (P1.0).
@@ -300,13 +303,12 @@ uint8_t Get_PMOD_SWT_Status(void);
  * @param button_status An 8-bit unsigned integer that indicates the status of Button 1 and Button 2.
  *                      The two user LEDs are controlled based on the value of button_status.
  *
- *  button_status      LED 1 Color      RGB LED Color
- *  -------------      -----------      -------------
- *      0x00               Red              Red
- *      0x10               Red              Off
- *      0x02               Off              Green
- *      0x12               Off              Off
- *
+ *  button_status      LED 1         RGB LED           PMOD 8LD
+ *  -------------      -----         -------           --------
+ *      0x00           Toggle        Green, Toggle       0x00
+ *      0x10           On            Off                 0x55
+ *      0x02           Off           Blue                0xAA
+ *      0x12           Off           Off                 0xFF
  *
  * @return None
  */
@@ -326,6 +328,100 @@ void LED_Pattern_1(uint8_t button_status);
  * @return None
  */
 void LED_Pattern_2(void);
+
+/**
+ * @brief The LED_Pattern_3 function outputs a binary down counter pattern on the PMOD 8LD module.
+ *
+ * This function turns on LED 1, displays a blue color on the RGB LED, and outputs an 8-bit
+ * binary down counter pattern on the PMOD 8LD module that counts down from 255 to 0.
+ * The delay rate for each count is 100 ms. This function is called only when SWT2 is
+ * enabled, and the sequence stops when other switches are enabled.
+ *
+ * @param None
+ *
+ * @return None
+ */
+void LED_Pattern_3(void);
+
+/**
+ * @brief The LED_Pattern_4 function outputs a ring counter pattern on the PMOD 8LD module.
+ *
+ * This function generates a ring counter pattern by setting one bit every iteration. In the
+ * first iteration, the least significant bit is set to 1. Then, for every iteration, the "1"
+ * bit shifts to the left, rotating through every bit position until it returns to the original
+ * position. The delay rate for each iteration is 200 ms. This function is called only when
+ * SWT3 is enabled, and the sequence stops when other switches are enabled.
+ *
+ * Iteration    PMOD 8LD Value
+ * ---------    --------------
+ *     0             0x01
+ *     1             0x02
+ *     2             0x04
+ *     3             0x08
+ *     4             0x10
+ *     5             0x20
+ *     6             0x40
+ *     7             0x80
+ *
+ * @param None
+ *
+ * @return None
+ */
+void LED_Pattern_4(void);
+
+
+/**
+ * @brief The LED_Pattern_5 function outputs a ring counter pattern on the PMOD 8LD module.
+ *
+ * This function generates a ring counter pattern by setting one bit every iteration. In the
+ * first iteration, the most significant bit is set to 1. Then, for every iteration, the "1"
+ * bit shifts to the right, rotating through every bit position until it returns to the original
+ * position. The delay rate for each iteration is 200 ms. This function is called only when
+ * SWT4 is enabled, and the sequence stops when other switches are enabled.
+ *
+ * Iteration    PMOD 8LD Value
+ * ---------    --------------
+ *     0             0x80
+ *     1             0x40
+ *     2             0x20
+ *     3             0x10
+ *     4             0x08
+ *     5             0x04
+ *     6             0x02
+ *     7             0x01
+ *
+ * @param None
+ *
+ * @return None
+ */
+void LED_Pattern_5(void);
+
+
+/**
+ * @brief The Johnson_Counter function outputs an 8-bit Johnson counter pattern on the PMOD 8LD module.
+ *
+ * This function generates an 8-bit Johnson (also known as twisted ring) counter pattern. It
+ * starts the sequence at all zeroes and updates the pattern by shifting left by one bit and
+ * inserting the inverted previous MSB into Bit 0. The delay rate for each iteration is 200 ms.
+ * This function is called only when SWT0 and SWT1 are enabled, while all other switches are
+ * disabled, and the sequence stops when other switches are enabled.
+ *
+ * Iteration    PMOD 8LD Value        Iteration    PMOD 8LD Value
+ * ---------    --------------        ---------    --------------
+ *     0             0x00                 8             0xFF
+ *     1             0x01                 9             0xFE
+ *     2             0x03                10             0xFC
+ *     3             0x07                11             0xF8
+ *     4             0x0F                12             0xF0
+ *     5             0x1F                13             0xE0
+ *     6             0x3F                14             0xC0
+ *     7             0x7F                15             0x80
+ *
+ * @param None
+ *
+ * @return None
+ */
+void Johnson_Counter(void);
 
 /**
  * @brief The LED_Controller function selects and executes an appropriate LED pattern based on button and switch statuses.
