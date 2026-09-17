@@ -42,7 +42,7 @@ Screenshots were taken during debugging by expanding each port in the Regsiter w
 
 #### Port 1 - after LED1_Init
 
-![Port 1](screenshots\ece528L_lab0_gpio_port1.png)
+![Port 1](screenshots/ece528L_lab0_gpio_port1.png)
 
 #### Port 2 - after LED2_Init
 
@@ -72,5 +72,4 @@ This lab was completed individually.
 - [MSP432P401R SimpleLink Microcontroller LaunchPad Development Kit User's Guide](https://docs.rs-online.com/3934/A700000006811369.pdf)
 - [MSP432P4xx SimpleLink Microcontrollers Technical Reference Manual](https://web.archive.org/web/20200402132841/http:/www.ti.com/lit/ug/slau356i/slau356i.pdf)
 - [PMOD SWT Reference Manual](https://digilent.com/reference/pmod/pmodswt/reference-manual)
-- [PMOD LED Reference Manual](https://reference.digilentinc.com/reference/pmod/pmodled/reference-manual)
 - [PMOD 8LD Reference Manual](https://digilent.com/reference/pmod/pmod8ld/reference-manual)
